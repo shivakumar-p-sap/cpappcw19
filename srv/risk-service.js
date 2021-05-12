@@ -8,5 +8,10 @@ module.exports = async (srv) => {
         } else {
         each.criticality = 2;
         }
-        })
+        });
+
+        const BupaService = await cds.connect.to('API_BUSINESS_PARTNER');
+        srv.on('READ', srv.entities.BusinessPartners, async (req) => {
+            return await BupaService.tx(req).run(req.query);
+        });
 }
