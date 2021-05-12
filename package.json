@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@sap/cds": "^5",
+    "@sap/cds-mtx": "^2.0.1",
+    "@sap/hdi-deploy": "^4.0.5",
+    "@sap/instance-manager": "^3.0.0",
     "@sap/xsenv": "^3.1.0",
     "@sap/xssec": "^3.2.0",
     "express": "^4",
@@ -54,7 +57,11 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "multiTenant": true,
+        "vcap": {
+          "label": "service-manager"
+        }
       },
       "uaa": {
         "kind": "xsuaa",
