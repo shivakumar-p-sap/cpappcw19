@@ -6,6 +6,7 @@ annotate RiskService.Risks with {
 	descr       @title: 'Description';
 	miti        @title: 'Mitigation';
 	impact      @title: 'Impact';
+    bp          @title: 'Business Partner';
 }
 
 annotate RiskService.Mitigations with {
@@ -31,6 +32,7 @@ annotate RiskService.Risks with @(
 		LineItem: [
 			{Value: title},
 			{Value: miti_ID},
+			{Value: bp.businessPartnerFullName},
 			{
 				Value: prio,
 				Criticality: criticality
@@ -52,13 +54,26 @@ annotate RiskService.Risks with @(
 					Value: prio,
 					Criticality: criticality
 				},
-				{
+                {
 					Value: impact,
 					Criticality: criticality
-				}
+				},
+				{Value: bp_ID},
+                {Value : bp.businessPartnerFullName},
+                {Value : bp.businessPartnerIsBlocked},
+                {Value : bp.searchTerm1}
 			]
 		}
 	},
+    Common.SideEffects : {
+        EffectTypes      : #ValueChange,
+        SourceProperties : [bp_ID],
+        TargetProperties : [
+            bp.businessPartnerFullName,
+            bp.businessPartnerIsBlocked,
+            bp.searchTerm1
+        ]
+    }
 ) {
 
 };
@@ -81,6 +96,45 @@ annotate RiskService.Risks with {
 					}
 				]
 			}
+		},
+		UI.MultiLineText: IsActiveEntity
+	);
+	bp @(
+		Common: {
+			Text: bp.ID  , TextArrangement: #TextOnly,
+			ValueList: {
+				Label: 'Business Partners',
+				CollectionPath: 'BusinessPartners',
+				Parameters: [
+					{ $Type: 'Common.ValueListParameterInOut',
+						LocalDataProperty: bp_ID,
+						ValueListProperty: 'ID'
+					},
+					{ $Type: 'Common.ValueListParameterDisplayOnly',
+						ValueListProperty: 'businessPartnerFullName'
+					},
+					{ $Type: 'Common.ValueListParameterDisplayOnly',
+						ValueListProperty: 'businessPartnerIsBlocked'
+					},
+                    { $Type: 'Common.ValueListParameterDisplayOnly',
+						ValueListProperty: 'searchTerm1'
+					}
+				]
+			}
 		}
 	);
 }
+
+
+  annotate RiskService.BusinessPartners with {
+    // ID @(
+    //   UI.Hidden,
+    //   Common: {
+    //     Text: businessPartnerFullName
+    //   }
+    // );
+    ID @title: 'Business Partner';
+    businessPartnerFullName    @title: 'Business Partner Name' @readonly;
+    businessPartnerIsBlocked   @title: 'Blocked Status' @readonly;
+    searchTerm1 @title: 'Search Term' @readonly;
+  }
