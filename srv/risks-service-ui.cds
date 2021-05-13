@@ -70,7 +70,7 @@ annotate RiskService.Risks with @(
         SourceProperties : [bp_ID],
         TargetProperties : [
             bp.businessPartnerFullName,
-            bp.businessPartnerIsBlocked,
+           
             bp.searchTerm1
         ]
     }
