@@ -14,7 +14,7 @@
       ],
       "subscribeFilter": [
         "${namespace}/*",
-        "sap/S4HANAOD/risk/*"
+        "sap/S4HANAOD/rmrm/*"
       ]
     },
     "topicRules": {
@@ -23,7 +23,7 @@
       ],
       "subscribeFilter": [
         "${namespace}/*",
-        "sap/S4HANAOD/risk/*"
+        "sap/S4HANAOD/rmrm/*"
       ]
     }
   }

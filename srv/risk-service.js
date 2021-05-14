@@ -19,7 +19,7 @@
         each.criticality = 2;
         }
         });
-        messaging.on("sap/S4HANAOD/risk/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1", async (msg) => {
+        messaging.on("sap/S4HANAOD/rmrm/ce/sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1", async (msg) => {
           console.log("<< event caught", msg);
           const BUSINESSPARTNER = msg.data.BusinessPartner;
           console.log('<<< Received Business Partner ' + BUSINESSPARTNER )
